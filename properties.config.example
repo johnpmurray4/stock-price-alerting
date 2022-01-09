@@ -1,0 +1,6 @@
+[EMAIL_CREDENTIALS]
+username=test
+password=test
+
+[EMAIL_RECIPIENT]
+recipient=example
