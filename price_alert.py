@@ -4,37 +4,37 @@ import pandas as pd
 
 
 def main():
-    with open(os.path.dirname(__file__) + '/data/stocks.csv') as f:
+    with open(os.path.dirname(__file__) + '/data/tickers_to_check.csv') as f:
         lines = f.readlines()
 
-    checkPrices(lines)
+    check_prices(lines)
 
 
-def checkPrices(tickersToCheck):
+def check_prices(tickersToCheck):
     for line in tickersToCheck:
         ticker, stopLoss, target = line.split(",", 3)
         print("Checking price for " +
               ticker + ", stop loss is " + stopLoss + ", with target " + target)
 
-        price = getPrice(ticker)
+        price = get_price(ticker)
         print("Price for ticker " + ticker + " is " + str(price))
 
         if (price < float(stopLoss)):
             print("Price is lower than stop loss")
-            sendEmail("STOP", price, float(stopLoss))
+            send_email("STOP", price, float(stopLoss))
 
         if (price > float(target)):
             print("Price is higher than target")
-            sendEmail("TARGET_MET", price, float(target))
+            send_email("TARGET_MET", price, float(target))
 
 
-def getPrice(ticker: str) -> float:
+def get_price(ticker: str) -> float:
     ticker_yahoo = yf.Ticker(ticker)
     data = ticker_yahoo.history()
     return float(data.tail(1).iloc[0]['Close'])
 
 
-def sendEmail(action: str, currentPrice: float, targetPrice: float):
+def send_email(action: str, currentPrice: float, targetPrice: float):
     print("Sending email alert")
 
 
