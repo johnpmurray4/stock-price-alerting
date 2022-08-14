@@ -20,7 +20,7 @@ class TestMain(unittest.TestCase):
         self.assertTrue(mock_email.called)
 
     @patch('price_alert.send_email')
-    @patch('price_alert.get_price', return_value=175.0)
+    @patch('price_alert.get_price', return_value=170.0)
     def test_no_action(self, mock_price, mock_email):
         check_prices(["SNG.L,170,180"])
         self.assertFalse(mock_email.called)
